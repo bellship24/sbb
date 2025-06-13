@@ -1,5 +1,7 @@
 # 점프 투 스프링부트 : 1장 스프링부트 개발 준비하기
 
+먼저, 스프링부트를 위한 기반 환경들을 구성하자.
+
 jdk, gradle 설치
 
 ```bash
@@ -19,6 +21,8 @@ $ brew install gradle
 $ brew list --versions | grep -i gradle
 gradle 8.14.2
 ```
+
+gradle로 java 프로젝트를 생성하고 springboot에 맞게 수정하자.
 
 gradle로 프로젝트 초기화
 
@@ -106,7 +110,11 @@ public class SbbApplication {
 }
 ```
 
-(gradle 초기화로 생성된 기본 main 클래스 `com/mysite/sbb/App.java`는 삭제해야 함)
+static이란?
+- 클래스가 로딩될 때 한 번만 메모리에 할당되어 모든 객체가 공유하는 클래스 소속의 변수나 메소드.
+- "공통으로 사용되는 것"이나 "객체 생성 없이 사용해야 하는 것"에 사용.
+
+gradle 초기화로 생성된 기본 main 클래스 `com/mysite/sbb/App.java`는 삭제해야 함.
 
 스트링부트 실행 테스트
 
@@ -137,10 +145,42 @@ Calculating task graph as configuration cache cannot be reused because the file 
 > :app:bootRun
 ```
 
-localhost:8080 접근 시에 404 발생이 정상인 상태
+localhost:8080 접근 시에 404 발생이 정상인 상태.
 
-# 기타
+특정 url로 접근하여 클라이언트로부터 받은 요청을 서버에서 처리하기 위해 Controller를 작성하고 테스트해보자.
 
-static이란?
-- 클래스가 로딩될 때 한 번만 메모리에 할당되어 모든 객체가 공유하는 클래스 소속의 변수나 메소드
-- "공통으로 사용되는 것"이나 "객체 생성 없이 사용해야 하는 것"에 사용
+Controller란?
+
+- 서버에 전달된 클라이언트의 요청을 처리하는 자바 클래스.
+
+Annotation이란?
+- 클래스, 메서드, 변수 등에 정보를 부여하여 부가 동작을 수행하게 함.
+
+Get과 Post의 차이
+- Get과 Post는 HTTP 프로토콜을 사용하여 데이터를 서버로 전송하는 주요 방식.
+- Get 방식은 데이터를 URL에 노출시켜 요청하며, 주로 서버에서 데이터를 조회하거나 읽기 위한 목적으로 사용됨.
+- Post 방식은 데이터를 숨겨서 요청하므로 로그인 정보와 같은 민감한 데이터를 서버에 제출하거나 저장하는 목적으로 사용됨.
+
+/hello 테스트
+
+``` bash
+$ curl -v localhost:8080/hello
+* Host localhost:8080 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:8080...
+* Connected to localhost (::1) port 8080
+> GET /hello HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.7.1
+> Accept: */*
+> 
+* Request completely sent off
+< HTTP/1.1 200 
+< Content-Type: text/plain;charset=UTF-8
+< Content-Length: 11
+< Date: Fri, 13 Jun 2025 11:43:51 GMT
+< 
+* Connection #0 to host localhost left intact
+Hello World
+```
