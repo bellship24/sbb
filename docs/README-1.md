@@ -184,3 +184,14 @@ $ curl -v localhost:8080/hello
 * Connection #0 to host localhost left intact
 Hello World
 ```
+
+devtools란?
+- 스프링부트를 개발할 때 코드를 수정하면 자동으로 서버를 재시작해주는 편리한 개발용 도구
+- gradle로 설치하면 됨
+- dependencies.developmentOnly로 spring-boot-devtools 추가.
+
+lombok이란?
+- 소스 작성 시에 자바 클래스에 annotation을 사용하여 자주 쓰는 Getter 메서드, Setter 메서드, 생성자 등을 자동으로 만들어주는 도구.
+- 스프링부트 개발 시에 데이터 처리 위해 엔티티 클래스나 DTO 클래스 등을 사용해야 함. 이를 위해 먼저 이 클래스들의 속성값을 읽고 저장하는 Getter, Setter 메서드를 만들어야 함. 이러한 작업을 좀더 짧고 깔끔하게 작성하도록 돕는게 lombok.
+- lombok으로 생성자도 자동으로 생성 가능함. 클랙스의 속성에 final을 추가하고 `@RequiredArgsConstructor` 애너테이션을 적용하면 해당 속성을 필요로 하는 생성자가 롬복에 의해 자동 생성됨.
+- `final`은 뒤에 따라오는 자료형과 변수 등을 변경할 수 없게 만드는 java 키워드. 만약 클래스 속성을 정의한 코드에 `final`이 없다면 생성자에 포함되지 않음. 또한 `final`을 적용하면 속성값을 변경할 수 없기 때문에 `@Setter`는 의미가 없어지고, `Setter` 메서드 또한 사용할수 없음.
